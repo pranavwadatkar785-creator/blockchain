@@ -1,0 +1,10 @@
+{
+  "simplestorage.sol": {
+    "__sources__": {
+      "simplestorage.sol": {
+        "content": "//SPDX-License-Identifier: MIT\r\npragma solidity 0.8.18;\r\n\r\n// contract SimpleStorage{\r\n//     // Basic Types\r\n//     bool true0rfalse = true;\r\n//     uint num = 255; //uint can specified from 8 to 256 in bits if not specified default is 256\r\n//     int256 num2 = -16; // int can be negative, int can specified from 8 to 256 in bits if not specified default is 256\r\n//     string name = \"Pranav\";\r\n//     address myadd = 0xda7126890BcEeb5fCbC2cC77Dc4B685831ce9C67;\r\n//     bytes32 Byytes = \"Wadatkar\";\r\n// }\r\n\r\ncontract SimpleStorageMain{\r\n    uint public myfavnum = 0; // if not specified default is zero\r\n\r\n    uint256[] listoffav;\r\n\r\n    struct Person{\r\n        uint256 favnum;\r\n        string name;\r\n    }\r\n    // Person public me = Person(19,\"Pranav\");\r\n\r\n    //if size is specified in [] then it is a static array if not it is dynamic array(size can grow or shrink)\r\n    Person[] public listofnum;\r\n\r\n    mapping(string => uint256) public nameToFavnum;\r\n\r\n    function store(uint _favnum) public {\r\n        myfavnum = _favnum;\r\n    }\r\n\r\n    function retrieve() public view returns(uint256){\r\n        return myfavnum; // view in function call only allows to retrieve data, not store, pure doesn't allow anthing\r\n    }\r\n\r\n    function addperson(string memory name,uint256 _favnum) public {\r\n        listofnum.push(Person(_favnum, name));\r\n        nameToFavnum[name] = _favnum;\r\n    }\r\n}",
+        "file": "simplestorage.sol"
+      }
+    }
+  }
+}
