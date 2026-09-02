@@ -1,0 +1,12 @@
+# Remix generated/local files
+.deps/
+.states/
+artifacts/
+
+# Environment/secrets
+.env
+.env.*
+
+# OS/editor files
+.DS_Store
+.vscode/
