@@ -4,12 +4,18 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 
 contract Fundme{
     //uint256 public myval = 1;
-    uint256 public minusd = 5;
+    uint256 public minusd = 5 * (10**18);
+
+    address[] public funders;
+    mapping (address funder => uint256 amountFunded) public addressToAmountFunded;
 
     function fund() public payable {
 
         //myval = myval + 2;
-        require(msg.value >= minusd,"Didn't send enough ETH!"); 
+        require(getConversionRate(msg.value) >= minusd,"Didn't send enough ETH!");
+        funders.push(msg.sender);
+        addressToAmountFunded[msg.sender] = addressToAmountFunded[msg.sender] + msg.value;
+
     }
 
     function getPrice() public view returns (uint256){
@@ -22,5 +28,12 @@ contract Fundme{
 
     function getVersion() public view returns (uint256){
         return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).version();
+    }
+
+    function getConversionRate(uint256 ethAmount) public view returns(uint256){
+        uint256 ethPrice = getPrice();
+        uint256 ethAmountInUSD = (ethPrice * ethAmount) / 1e18;
+
+        return ethAmountInUSD;
     }
 }
